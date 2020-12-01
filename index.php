@@ -33,7 +33,7 @@
                         <p class="distinct-link">-</p>
                         <a class="services-link" href="#services">Nos services</a>
                     </section>
-                    <img src="images/planet.gif" id="planet_gif" alt="Planet Gif">
+                    <img src="images/planet.gif" id="planet_gif" class="img-fluid" alt="Planet Gif">
             </article>
         </main>
 
@@ -46,7 +46,7 @@
                 N'hésitez plus, créez sans plus attendre un compte tout droit sorti de l'espace !</p>
             </section>
             <section class="container who-img">
-                <img src="images/detail-sattelit.svg" id="sattelit" alt="Explication schématique">
+                <img src="images/detail-sattelit.svg" id="sattelit" class="img-fluid" alt="Explication schématique">
                 <p>(<i>Grâce à la Nano-fibre spatiale, plus besoin de se soucier de la distance !</i>).</p>
             </section>
         </section>
@@ -85,9 +85,36 @@
                     </section>
                 </section>
             </section>
+            <section class="container services-info">
+                <p>Avec un <b>confiance</b> maximum, vous ne trouverez pas mieux ailleurs !</p>
+                <p>Notre <b>fiabilité</b> ne dépend que de vous ! Avec maintenant plus d'un million d'utilisateurs, le retour client se fait de manière paisible et spontané !</p>
+                <p>Actuellement, nos équipements sont <b>très (très très, j'insiste) rapide</b> en ce qui concerne internet, avec nos 200To de Nano-fibre spatiale, ne craignez plus de
+                vous inquietez de vos proches partis si loin !</p>
+                <p id="end-text">Evidemment, possédés de tels équipements nécessite une grande <b>sécurité</b> ! C'est pour quoi, avec les meilleurs de tout les pays nous avons pu réunir en un projet commun une sécurité
+                hors-norme !</p>
+            </section>
         </section>
 
+        <!--footer starts from here-->
         <footer>
+            <section class="footer">
+                <div class="container">
+                    <ul class="footer_ul">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="php/discussion.php">Chat</a></li>
+                        <li><a href="php/connexion.php">Connexion</a></li>
+                        <li><a href="php/inscription.php">Inscription</a></li>
+                        <li><a href="php/profil.php">Profil</a></li>
+                    </ul>
+                    <p class="text-center">Copyright @2020 | Designed With William KIES for <a href="#">Planet Chat.</a></p>
+                    <ul class="social_footer">
+                        <li><a href="https://www.facebook.com/planet.chat2077" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.twitter.com/planet.chat" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.linkedin.com/planet.chat" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="https://www.instagram.com/planet.chat2077" target="_blank"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </section>
         </footer>
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
