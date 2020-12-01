@@ -1,29 +1,50 @@
+<?php
+$db = mysqli_connect('localhost', 'root', '', 'discussion');
+session_start();
+
+    if (isset($_POST['logout'])){
+
+        session_destroy();
+        header('location:php/connexion.php');
+        exit();
+    }
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="fr">
     <head>
         <meta charset=UTF-8">
         <title>Planet Chat</title>
+        <!-- CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     </head>
     <body>
+        <!-- Header -->
         <header>
             <nav>
                 <section class="sidebar-container">
-                    <section class="sidebar-logo">Discussion</section>
+                    <section class="sidebar-logo"><?php if(isset($_SESSION['id'])){echo '<i class="fas fa-user-circle"></i> ' . $_SESSION['login'];} ?></section>
                     <ul class="sidebar-navigation">
                         <li class="header">Navigation</li>
                         <li id="home"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
                         <li id="chat"><a href="php/discussion.php"><i class="fa fa-users" aria-hidden="true"></i> Chat</a></li>
-                        <li id="connexion"><a href="php/connexion.php"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Connexion</a></li>
-                        <li id="inscription"><a href="php/inscription.php"><i class="fas fa-registered" aria-hidden="true"></i> Inscription</a></li>
+                        <?php
+                            if (!isset($_SESSION['id'])){
+                                echo '<li id="connexion"><a href="php/connexion.php"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Connexion</a></li>';
+                                echo '<li id="inscription"><a href="php/inscription.php"><i class="fas fa-registered" aria-hidden="true"></i> Inscription</a></li>';
+                            }
+                        ?>
                         <li id="profil"><a href="php/profil.php"><i class="fa fa-cog" aria-hidden="true"></i> Profil</a></li>
+                        <?php if(isset($_SESSION['id'])){echo '<form method="POST" action="index.php" style="margin-left: 15%; margin-top: 10%;"><input type="submit" name="logout" value="Déconnexion" class="btn btn-danger"></form>';} ?>
                     </ul>
                 </section>
             </nav>
         </header>
 
+        <!-- Main -->
         <main>
             <article>
                 <section class="container-fluid main-info-section text-center">
@@ -37,6 +58,7 @@
             </article>
         </main>
 
+        <!-- Qui sommes-nous ? -->
         <section class="container-fluid who-section text-center" id="who">
             <h1>Qui sommes-nous ?</h1>
             <section class="container who-info">
@@ -51,6 +73,7 @@
             </section>
         </section>
 
+        <!-- Nos services -->
         <section class="container-fluid services-section text-center" id="services">
             <h1>Nos services</h1>
             <section class="progress-section">
@@ -62,6 +85,7 @@
                                 <h2>100%</h2>
                             </section>
                         </section>
+
                         <section class="col-md-3">
                             <h1>fiabilité</h1>
                             <section class="progress-bars-two">
@@ -95,10 +119,10 @@
             </section>
         </section>
 
-        <!--footer starts from here-->
+        <!-- Footer -->
         <footer>
             <section class="footer">
-                <div class="container">
+                <section class="container">
                     <ul class="footer_ul">
                         <li><a href="#">Home</a></li>
                         <li><a href="php/discussion.php">Chat</a></li>
@@ -106,17 +130,18 @@
                         <li><a href="php/inscription.php">Inscription</a></li>
                         <li><a href="php/profil.php">Profil</a></li>
                     </ul>
-                    <p class="text-center">Copyright @2020 | Designed With William KIES for <a href="#">Planet Chat.</a></p>
+                    <p class="text-center">Copyright @2020 | Designed By William KIES for <a href="#">Planet Chat.</a></p>
                     <ul class="social_footer">
                         <li><a href="https://www.facebook.com/planet.chat2077" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
                         <li><a href="https://www.twitter.com/planet.chat" target="_blank"><i class="fab fa-twitter"></i></a></li>
                         <li><a href="https://www.linkedin.com/planet.chat" target="_blank"><i class="fab fa-linkedin"></i></a></li>
                         <li><a href="https://www.instagram.com/planet.chat2077" target="_blank"><i class="fab fa-instagram"></i></a></li>
                     </ul>
-                </div>
+                </section>
             </section>
         </footer>
 
+        <!-- JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     </body>
