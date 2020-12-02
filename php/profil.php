@@ -27,14 +27,12 @@ session_start();
 
                     echo '<section class="alert alert-success text-center" role="alert">Modification effectuée ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></section>';
                 }
-                else{
-                    echo '<section class="alert alert-danger text-center" role="alert">Echec de la modification, réessayer ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></section>';
-                }
+            }
+            else{
+                echo '<section class="alert alert-danger text-center" role="alert">Echec de la modification, réessayer ! <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></section>';
             }
         }
     }
-
-
 
 ?>
 
@@ -133,7 +131,7 @@ session_start();
                         <li><a href="inscription.php">Inscription</a></li>
                         <li><a href="#">Profil</a></li>
                     </ul>
-                    <p class="text-center">Copyright @2020 | Designed By William KIES for <a href="#">Planet Chat.</a></p>
+                    <p style="margin-left: 33.1%;">Copyright @2020 | Designed By William KIES for <a href="#">Planet Chat.</a></p>
                 </section>
             </section>
         </footer>
