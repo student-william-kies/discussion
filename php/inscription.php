@@ -17,7 +17,7 @@ session_start();
             exit();
         }
         else{
-            echo '<section class="text-center alert alert-dark">Erreur ! Login/Mot de passe incorrect.<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></section>';
+            echo '<section class="text-center alert alert-dark">Erreur ! Login/Mot de passe incorrect. <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></section>';
         }
     }
     $control_id = mysqli_num_rows(mysqli_query($db, 'SELECT * FROM utilisateurs'));

@@ -28,9 +28,9 @@ session_start();
                     header('location:../index.php');
                     exit();
                 }
-                else{
-                    echo '<section class="alert alert-danger text-center" role="alert">' . $error_login . '</section>';
-                }
+            }
+            else{
+                echo '<section class="alert alert-danger text-center" role="alert">' . $error_login . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></section>';
             }
         }
     }
