@@ -1,11 +1,14 @@
 <?php
-$db = mysqli_connect('localhost', 'root', '', 'discussion');
-session_start();
+    /* Connexion a la base de données */
+    $db = mysqli_connect('localhost', 'root', '', 'discussion');
+    /* Démarrage de la session */
+    session_start();
 
+    /* Condition if qui permet de se créer un compte */
     if (isset($_POST['register'])){
-        $login = htmlspecialchars(trim($_POST['login']));
-        $password = htmlspecialchars(trim($_POST['password']));
-        $confirm_password = htmlspecialchars(trim($_POST['confirmPassword']));
+        $login = mysqli_real_escape_string($db, htmlspecialchars(trim($_POST['login'])));
+        $password = mysqli_real_escape_string($db, htmlspecialchars(trim($_POST['password'])));
+        $confirm_password = mysqli_real_escape_string($db, htmlspecialchars(trim($_POST['confirmPassword'])));
 
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
@@ -20,6 +23,7 @@ session_start();
             echo '<section class="text-center alert alert-dark">Erreur ! Login/Mot de passe incorrect. <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></section>';
         }
     }
+    /* Condition if qui permet de vérifier l'id en base de données */
     $control_id = mysqli_num_rows(mysqli_query($db, 'SELECT * FROM utilisateurs'));
 
     if ($control_id == 0){

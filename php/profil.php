@@ -1,7 +1,10 @@
 <?php
-$db = mysqli_connect('localhost', 'root', '', 'discussion');
-session_start();
+    /* Connexion a la base de données */
+    $db = mysqli_connect('localhost', 'root', '', 'discussion');
+    /* Démarrage de la session */
+    session_start();
 
+    /* Condition if qui permet de se deconnecter */
     if (isset($_POST['logout'])){
 
         session_destroy();
@@ -9,12 +12,13 @@ session_start();
         exit();
     }
 
+    /* Condition if qui permet si la session est active de modifier selon des paramètre de verification de modifier son profil */
     if (isset($_SESSION['id'])){
         if (isset($_POST['modify'])){
             if (isset($_POST['newLogin']) && $_POST['newPassword'] === $_POST['newConfirmPassword']){
-                $new_login = htmlspecialchars(trim($_POST['newLogin']));
-                $unhashed_password = htmlspecialchars(trim($_POST['newPassword']));
-                $new_ConfirmPassword = htmlspecialchars(trim($_POST['newConfirmPassword']));
+                $new_login = mysqli_real_escape_string($db, htmlspecialchars(trim($_POST['newLogin'])));
+                $unhashed_password = mysqli_real_escape_string($db, htmlspecialchars(trim($_POST['newPassword'])));
+                $new_ConfirmPassword = mysqli_real_escape_string($db, htmlspecialchars(trim($_POST['newConfirmPassword'])));
                 $session_id = $_SESSION['id'];
 
                 $update_hashed_password = password_hash($unhashed_password, PASSWORD_BCRYPT);
@@ -51,19 +55,21 @@ session_start();
         <!-- Header -->
         <header>
             <nav>
-                <section class="sidebar-container">
+                <section class="sidebar-container">   <!-- Condition if qui permet si la session est active d'afficher le login correspondant -->
                     <section class="sidebar-logo"><?php if(isset($_SESSION['id'])){echo '<i class="fas fa-user-circle"></i> ' . $_SESSION['login'];} ?></section>
                     <ul class="sidebar-navigation">
                         <li class="header">Navigation</li>
                         <li id="home"><a href="../index.php"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
                         <li id="chat"><a href="discussion.php"><i class="fa fa-users" aria-hidden="true"></i> Chat</a></li>
                         <?php
+                            /* Condition if qui permet si aucune session n'est active d'afficher les page connexion.php & inscription.php */
                             if (!isset($_SESSION['id'])){
                                 echo '<li id="connexion"><a href="connexion.php"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Connexion</a></li>';
                                 echo '<li id="inscription"><a href="inscription.php"><i class="fas fa-registered" aria-hidden="true"></i> Inscription</a></li>';
                             }
                         ?>
                         <li id="profil"><a href="#"><i class="fa fa-cog" aria-hidden="true"></i> Profil</a></li>
+                        <!-- Condition if qui permet si une session est active d'afficher un bouton deconnexion -->
                         <?php if(isset($_SESSION['id'])){echo '<form method="POST" action="profil.php" style="margin-left: 15%; margin-top: 10%;"><input type="submit" name="logout" value="Déconnexion" class="btn btn-danger"></form>';} ?>
                     </ul>
                 </section>
@@ -74,6 +80,7 @@ session_start();
         <main>
             <article>
                 <?php
+                    /* Condition if qui permet si une session est active d'afficher le formulaire de modification de profil */
                     if (isset($_SESSION['id'])){
                         $session_id = $_SESSION['id'];
                         $get_info = mysqli_query($db, "SELECT login FROM utilisateurs WHERE id =  $session_id");
@@ -127,8 +134,13 @@ session_start();
                     <ul class="footer_ul">
                         <li><a href="../index.php">Home</a></li>
                         <li><a href="discussion.php">Chat</a></li>
-                        <li><a href="connexion.php">Connexion</a></li>
-                        <li><a href="inscription.php">Inscription</a></li>
+                        <?php
+                            /* Condition if qui permet d'afficher les page connexion.php & inscription.php si une session est active */
+                            if (!isset($_SESSION['id'])){
+                                echo '<li id="connexion"><a href="connexion.php"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Connexion</a></li>';
+                                echo '<li id="inscription"><a href="inscription.php"><i class="fas fa-registered" aria-hidden="true"></i> Inscription</a></li>';
+                            }
+                        ?>
                         <li><a href="#">Profil</a></li>
                     </ul>
                     <p style="margin-left: 33.1%;">Copyright @2020 | Designed By William KIES for <a href="#">Planet Chat.</a></p>

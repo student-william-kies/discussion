@@ -1,7 +1,10 @@
 <?php
-$db = mysqli_connect('localhost', 'root', '', 'discussion');
-session_start();
+    /* Connexion a la base de données */
+    $db = mysqli_connect('localhost', 'root', '', 'discussion');
+    /* Démarrage de la session */
+    session_start();
 
+    /* Condition if qui permet de se deconnecter */
     if (isset($_POST['logout'])){
 
         session_destroy();
@@ -25,19 +28,21 @@ session_start();
         <!-- Header -->
         <header>
             <nav>
-                <section class="sidebar-container">
+                <section class="sidebar-container">   <!-- Condition qui permet d'afficher le login correspondant a la session active -->
                     <section class="sidebar-logo"><?php if(isset($_SESSION['id'])){echo '<i class="fas fa-user-circle"></i> ' . $_SESSION['login'];} ?></section>
                     <ul class="sidebar-navigation">
                         <li class="header">Navigation</li>
                         <li id="home"><a href="#"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
                         <li id="chat"><a href="php/discussion.php"><i class="fa fa-users" aria-hidden="true"></i> Chat</a></li>
                         <?php
+                            /* Condition if qui permet si aucune session est active d'afficher les pages connexion.php et inscription.php */
                             if (!isset($_SESSION['id'])){
                                 echo '<li id="connexion"><a href="php/connexion.php"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Connexion</a></li>';
                                 echo '<li id="inscription"><a href="php/inscription.php"><i class="fas fa-registered" aria-hidden="true"></i> Inscription</a></li>';
                             }
                         ?>
                         <li id="profil"><a href="php/profil.php"><i class="fa fa-cog" aria-hidden="true"></i> Profil</a></li>
+                        <!-- Condition if qui permet si une session est active d'afficher un bouton deconnexion -->
                         <?php if(isset($_SESSION['id'])){echo '<form method="POST" action="index.php" style="margin-left: 15%; margin-top: 10%;"><input type="submit" name="logout" value="Déconnexion" class="btn btn-danger"></form>';} ?>
                     </ul>
                 </section>
@@ -126,8 +131,13 @@ session_start();
                     <ul class="footer_ul">
                         <li><a href="#">Home</a></li>
                         <li><a href="php/discussion.php">Chat</a></li>
-                        <li><a href="php/connexion.php">Connexion</a></li>
-                        <li><a href="php/inscription.php">Inscription</a></li>
+                        <?php
+                            /* Condition if qui permet si une session n'est pas active d'afficher les pages connexion.php & inscription.php */
+                            if (!isset($_SESSION['id'])){
+                                echo '<li id="connexion"><a href="php/connexion.php"><i class="fas fa-sign-in-alt" aria-hidden="true"></i> Connexion</a></li>';
+                                echo '<li id="inscription"><a href="php/inscription.php"><i class="fas fa-registered" aria-hidden="true"></i> Inscription</a></li>';
+                            }
+                        ?>
                         <li><a href="php/profil.php">Profil</a></li>
                     </ul>
                     <p class="text-center">Copyright @2020 | Designed By William KIES for <a href="#">Planet Chat.</a></p>

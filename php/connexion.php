@@ -1,13 +1,16 @@
 <?php
-$db = mysqli_connect('localhost', 'root', '', 'discussion');
-session_start();
+    /* Connexion a la base de données */
+    $db = mysqli_connect('localhost', 'root', '', 'discussion');
+    /* Démarrage de la session */
+    session_start();
 
+    /* Condition if qui permet de se connecter */
     if (isset($_POST['signin'])){
-        $user = htmlspecialchars(trim($_POST['login']));
-        $user_password = htmlspecialchars(trim($_POST['password']));
+        $user = mysqli_real_escape_string($db, htmlspecialchars(trim($_POST['login'])));
+        $user_password = mysqli_real_escape_string($db, htmlspecialchars(trim($_POST['password'])));
         $error_login = 'Veuillez réessayer ! Utilisateur introuvable (Login/mot de passe incorrect).';
 
-        $get_password = mysqli_query($db, "SELECT password FROM utilisateurs WHERE login ='" . mysqli_real_escape_string($db, $user) . "'");
+        $get_password = mysqli_query($db, "SELECT password FROM utilisateurs WHERE login ='$user'");
         $result = mysqli_fetch_row($get_password);
 
         if (!$result){
@@ -17,7 +20,7 @@ session_start();
             $check_password = $result[0];
 
             if (password_verify($user_password, $check_password)){
-                $check_data = mysqli_query($db, "SELECT * FROM utilisateurs WHERE login = '" . mysqli_real_escape_string($db, $user) . "' AND password = '" . mysqli_real_escape_string($db, $check_password) . "'");
+                $check_data = mysqli_query($db, "SELECT * FROM utilisateurs WHERE login = '$user' AND password = '$check_password'");
                 $info_user = mysqli_fetch_assoc($check_data);
 
                 if (mysqli_num_rows($check_data)){
